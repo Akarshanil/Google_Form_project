@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load form_filter %}
+
+
+
+{% block content %}
+    <h1>Responses</h1>
+
+    {% with form_data.form_data  as form %}
+        {% with form.data as data %}
+            {% for questionId,response in form_data.reponses.items %}
+
+
+                <div class="card">
+                    <div class="card-header font-monospace fw-bold">
+
+                        {% with data|lookup:questionId as question %} Q{{forloop.counter}}. {{question.questionText}} {% endwith %}
+
+                    </div>
+                    <div class="card-body">
+                        <table class="table table=hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Option</th>
+                                    <th scope="col">Response</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for response,count in response.items %}
+                                    <tr>
+                                        <td>{{response}}</td>
+                                        <td>{{count}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endwith %}
+    {% endwith %}
+{% endblock %}

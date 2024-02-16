@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load form_filter %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        table{
+        font-family:arial,sans-serif;
+        border-collapse:collapse;
+        width:100%;
+        }
+        td,
+        th{
+        text-align:left;
+        padding:8px;
+        }
+    </style>
+</head>
+<body>
+<h1>Formbase</h1>
+<a href="{% url 'myapp:create' %}"><button>Create form</button></a>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Updated On</th>
+        <th>Created On</th>
+        <th>View</th>
+    </tr>
+        {% for i in forms %}
+        {% if i.updated %}
+            <tr>
+                <td>{{i.form_data.title}}</td>
+                <td>{{i.updated}}</td>
+                <td>{{i.created}}</td>
+                <td><a href="{% url 'myapp:update_form' i|lookup:'_id'  %}" target="_blank">Open in new tab</a></td>
+
+            </tr>
+        {% endif %}
+
+
+        {% endfor %}
+
+</table>
+</body>
+</html>
